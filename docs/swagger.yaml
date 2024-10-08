@@ -1,0 +1,108 @@
+basePath: /
+definitions:
+  models.FilePart:
+    properties:
+      data:
+        items:
+          type: integer
+        type: array
+      fileID:
+        type: string
+      id:
+        type: integer
+      part:
+        type: integer
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: API for uploading, retrieving, and downloading files.
+  title: Distributed File Storage API
+  version: "1.0"
+paths:
+  /download:
+    get:
+      description: Download the full file by merging its parts using the file ID.
+      parameters:
+      - description: Unique file ID
+        in: query
+        name: fileID
+        required: true
+        type: string
+      produces:
+      - application/octet-stream
+      responses:
+        "200":
+          description: Downloaded file
+          schema:
+            type: file
+        "400":
+          description: fileID is required
+          schema:
+            type: string
+      summary: Download a merged file by file ID
+      tags:
+      - file
+  /files:
+    get:
+      description: Get all parts of a file by the provided file ID.
+      parameters:
+      - description: Unique file ID
+        in: query
+        name: fileID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.FilePart'
+            type: array
+        "400":
+          description: fileID is required
+          schema:
+            type: string
+      summary: Retrieve file parts by file ID
+      tags:
+      - file
+  /upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Upload a file, split it into parts, and store each part in the
+        database.
+      parameters:
+      - description: File to upload
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Unique file ID
+        in: formData
+        name: fileID
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: File not provided
+          schema:
+            type: string
+        "500":
+          description: Failed to open file
+          schema:
+            type: string
+      summary: Upload a file and split it into parts
+      tags:
+      - file
+swagger: "2.0"
