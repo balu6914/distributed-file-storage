@@ -127,6 +127,13 @@ distributed-file-storage/
 ![image](https://github.com/user-attachments/assets/ad1d92ac-380a-4e50-a077-1b32f0cf8bab)
 
 
+![distributedfilestorageapp](https://github.com/user-attachments/assets/de7ad18a-f8f4-4cdc-a03b-385614462fa2)
+
+![distributedfilestorageapp1](https://github.com/user-attachments/assets/e3218ffe-3ded-4ba6-a5c1-4e95d0e865e8)
+
+
+
+
 ```
 
 ## Database
